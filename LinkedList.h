@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -87,7 +88,7 @@ void LinkedList<T>::push_back(const T& data)
 template <typename T>
 T LinkedList<T>::pop_front()
 {
-    T value = this->head->data;
+    T value = this->head->value;
     this->head = this->head->next;
     this->length--;
     return value;         

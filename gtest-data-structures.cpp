@@ -1,5 +1,16 @@
 #include "LinkedList.h"
+#include "HashMap.h"
 #include "gtest/gtest.h"
+
+TEST(IntHashMap_Test,IntHashMap_sanity)
+{
+    auto hash_f = new HashFunction();
+    auto hash = std::make_unique<IntHashMap>(*hash_f);
+    EXPECT_EQ(hash->length,2);
+    EXPECT_EQ(hash->filled,0);
+    delete hash_f;
+}
+
 
 TEST(LinkedList_int_Test,push_front_)
 {
@@ -8,8 +19,8 @@ TEST(LinkedList_int_Test,push_front_)
     EXPECT_EQ(ll->length,1);
     ll->push_front(6);
     EXPECT_EQ(ll->length,2);
-    EXPECT_EQ(ll->head->data,6);
-    EXPECT_EQ(ll->head->next->data,3);
+    EXPECT_EQ(ll->head->value,6);
+    EXPECT_EQ(ll->head->next->value,3);
     EXPECT_EQ(ll->head->next->next,nullptr);
 }
 
@@ -20,8 +31,8 @@ TEST(LinkedList_int_Test,push_back_)
     EXPECT_EQ(ll->length,1);
     ll->push_back(6);
     EXPECT_EQ(ll->length,2);
-    EXPECT_EQ(ll->head->data,3);
-    EXPECT_EQ(ll->head->next->data,6);
+    EXPECT_EQ(ll->head->value,3);
+    EXPECT_EQ(ll->head->next->value,6);
     EXPECT_EQ(ll->head->next->next,nullptr);
 }
 
@@ -35,7 +46,7 @@ TEST(LinkedList_int_Test,pop_front_)
     EXPECT_EQ(val,8);
     val = ll->pop_front();
     EXPECT_EQ(val,7);
-    EXPECT_EQ(ll->head->data,6);
+    EXPECT_EQ(ll->head->value,6);
 }
 
 TEST(LinkedList_int_Test,empty_)
