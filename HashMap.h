@@ -40,20 +40,15 @@ struct IntHashMap {
     size_t buckets;
     size_t filled;
 
-    IntHashMap(F f): buckets {5}, 
-                     filled {0}, 
-                     table {new HashNode*[5]},
+    IntHashMap(F f): buckets {5}, filled {0}, table {new HashNode*[5]},
                      hash_function {f}
                     {
-                        std::cout << "Hulloo out there." << sizeof(table) << std::endl;
                         for(int i; i < this->buckets; i++)
                         {
                             table[i] = nullptr;
                         }
-                        std::cout << "Hello out there." << sizeof(table) << std::endl;
                     };
     void add(const int&, const int&);
-    //void add(const KeyVal&);
     size_t index(const int&);
 
 };
@@ -69,9 +64,7 @@ size_t IntHashMap<F>::index(const int &key)
 template <typename F>
 void IntHashMap<F>::add(const int &key, const int &value)
 {
-        std::cout << "Starting to add." << std::endl;
-        std::cout << "sizeof." << sizeof(this->table) << std::endl;
-        // Find head of chain for given key
+
         size_t bucket_index = index(key);
         HashNode* head = nullptr;
 
@@ -82,25 +75,19 @@ void IntHashMap<F>::add(const int &key, const int &value)
 
         while (head)
         {
-            std::cout << "Yes" << std::endl;
-            std::cout << head->key << std::endl;
             if (head->key == key)
             {
                 head->value = value;
                 return;
             }
-            head = head->next;
         }
 
-        // Insert key in chain
-        std::cout << "Making new node." << std::endl;
         this->filled++;
         HashNode* node = new HashNode(key,value);
         node->next = head;
         this->table[bucket_index] = node;
  
-        // If load factor goes beyond threshold, then
-        // double hash table size
+        // if we get too full, resize array and copy
         if ((1.0*this->filled)/this->buckets >= 0.7)
         {
             HashNode** temp = this->table;

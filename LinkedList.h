@@ -12,8 +12,6 @@
 
 */
 
-Log* logger = new Log;
-
 template <typename T> 
 struct LinkedList {
     
