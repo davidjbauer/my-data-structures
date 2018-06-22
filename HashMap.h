@@ -16,7 +16,7 @@
 */
 
 
-// Starting with integer key/value pairs. Doing 
+// Starting with integer key/value pairs. 
 struct IntHashFunction{
     int operator()(const int &key) const
      {
@@ -107,31 +107,4 @@ void IntHashMap<F>::add(const int &key, const int &value)
             delete[] temp;
         }
 }
-
-// template <typename K, typename V, typename F=HashFunction<K>> 
-// struct HashMap {
-    
-//     struct HashNode {
-
-//         HashNode* next;
-//         K key;
-//         V value;
-
-//         HashNode(): key {}, value {}, next {} {};
-//         HashNode(const K& k, const V& v): key {k}, value {v}, next {nullptr} {};
-
-//     };
-
-//     HashNode hash_node;
-//     F hash_function;
-
-// };
-// Default hash function class
-// template <typename K>
-// struct HashFunction {
-//     unsigned long operator()(const K& key) const
-//     {
-//         return reinterpret_cast<unsigned long>(key);
-//     }
-// };
 

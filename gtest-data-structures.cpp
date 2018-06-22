@@ -1,7 +1,36 @@
 #include "LinkedList.h"
 #include "HashMap.h"
+#include "BST.h"
 #include "gtest/gtest.h"
 #include <unordered_set>
+
+TEST(BST_Test,BST_sanity)
+{
+    auto bst = std::make_unique<BST>();
+}
+
+TEST(BST_Test,insert_sanity)
+{
+    auto bst = std::make_unique<BST>();
+    bst->insert(3);
+    bst->insert(100);
+    bst->insert(42);
+    EXPECT_EQ(bst->nodes,3);
+}
+
+TEST(BST_Test,insert_find)
+{
+    auto bst = std::make_unique<BST>();
+    bst->insert(3);
+    bst->insert(100);
+    bst->insert(42);
+    EXPECT_EQ(bst->find(3),true);
+    EXPECT_EQ(bst->find(42),true);
+    EXPECT_EQ(bst->find(100),true);
+    EXPECT_EQ(bst->find(420),false);
+    EXPECT_EQ(bst->find(69),false);
+}
+
 
 TEST(IntHashMap_Test,IntHashMap_sanity)
 {
@@ -31,6 +60,8 @@ TEST(IntHashMap_Test,add_sanity)
     delete hash_f;
     delete hash;
 }
+
+
 
 TEST(LinkedList_int_Test,push_front_)
 {
