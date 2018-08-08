@@ -89,3 +89,9 @@ void BST::insert(int val)
     }
     this->nodes++;
 }
+
+// Remove the first node we find with a value
+void BST::remove(int val)
+{
+    
+}

@@ -32,34 +32,34 @@ TEST(BST_Test,insert_find)
 }
 
 
-TEST(IntHashMap_Test,IntHashMap_sanity)
-{
-    auto hash_f = new IntHashFunction();
-    auto hash = std::make_unique<IntHashMap<IntHashFunction>>(*hash_f);
-    EXPECT_EQ(hash->buckets,5);
-    EXPECT_EQ(hash->filled,0);
-    delete hash_f;
-}
+// TEST(IntHashMap_Test,IntHashMap_sanity)
+// {
+//     auto hash_f = new IntHashFunction();
+//     auto hash = std::make_unique<IntHashMap<IntHashFunction>>(*hash_f);
+//     EXPECT_EQ(hash->buckets,5);
+//     EXPECT_EQ(hash->filled,0);
+//     delete hash_f;
+// }
 
-TEST(IntHashMap_Test,add_sanity)
-{
-    struct MyHash {
-        int operator()(const int &key) const
-        {
-            return (int)std::hash<int>{}(key);
-        }
-    };
-    auto hash_f = new MyHash();
-    auto hash = new IntHashMap<MyHash>(*hash_f);
-    EXPECT_EQ(hash->buckets,5);
-    EXPECT_EQ(hash->filled,0);
-    hash->add(4,6);
-    EXPECT_EQ(hash->filled,1);
-    hash->add(32,69);
-    EXPECT_EQ(hash->filled,2);
-    delete hash_f;
-    delete hash;
-}
+// TEST(IntHashMap_Test,add_sanity)
+// {
+//     struct MyHash {
+//         int operator()(const int &key) const
+//         {
+//             return (int)std::hash<int>{}(key);
+//         }
+//     };
+//     auto hash_f = new MyHash();
+//     auto hash = new IntHashMap<MyHash>(*hash_f);
+//     EXPECT_EQ(hash->buckets,5);
+//     EXPECT_EQ(hash->filled,0);
+//     hash->add(4,6);
+//     EXPECT_EQ(hash->filled,1);
+//     hash->add(32,69);
+//     EXPECT_EQ(hash->filled,2);
+//     delete hash_f;
+//     delete hash;
+// }
 
 
 
@@ -133,6 +133,51 @@ TEST(LinkedList_int_Test,copy_constructor_)
     auto b = mm->pop_front();
     EXPECT_EQ(a,1);
     EXPECT_EQ(b,2);
+    delete ll;
+    delete mm;
+}
+
+TEST(LinkedList_int_Test,sorted_)
+{
+    LinkedList<int>* ll = new LinkedList<int>;
+    ll->push_front(2);
+    ll->push_front(5);
+    ll->push_front(3);
+    ll->push_front(1);
+    ll->push_front(6);
+    //ll->push_front(1);
+    //ll->push_front(1);
+    //ll->push_front(2);
+    //ll->push_front(1045);
+    auto mm = ll->sorted();
+    EXPECT_EQ(mm->pop_front(),1);
+    EXPECT_EQ(mm->pop_front(),2);
+    EXPECT_EQ(mm->pop_front(),3);
+    EXPECT_EQ(mm->pop_front(),5);
+    EXPECT_EQ(mm->pop_front(),6);
+    // EXPECT_EQ(mm->pop_front(),2);
+    // EXPECT_EQ(mm->pop_front(),6);
+    // EXPECT_EQ(mm->pop_front(),32);
+    // EXPECT_EQ(mm->pop_front(),1045);
+    delete ll;
+    delete mm;
+}
+
+TEST(LinkedList_int_Test,sorted_print)
+{
+    LinkedList<int>* ll = new LinkedList<int>;
+    ll->push_front(2);
+    ll->push_front(5);
+    ll->push_front(3);
+    ll->push_front(1);
+    ll->push_front(6);
+    ll->print();
+    auto mm = ll->sorted();
+    mm->print();
+    // EXPECT_EQ(mm->pop_front(),2);
+    // EXPECT_EQ(mm->pop_front(),6);
+    // EXPECT_EQ(mm->pop_front(),32);
+    // EXPECT_EQ(mm->pop_front(),1045);
     delete ll;
     delete mm;
 }
